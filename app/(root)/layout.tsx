@@ -1,6 +1,11 @@
+import Topbar from "@/components/shared/Topbar";
 import "../globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import LeftSideBar from "@/components/shared/LeftSidebar";
+import RightSideBar from "@/components/shared/RightSideBar";
+import Bottombar from "@/components/shared/Bottombar";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +21,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <ClerkProvider>
+          <Topbar />
+          <main>
+            <LeftSideBar />
+            <section className="main-container">
+              <div className="w-full max-w-4xl">{children}</div>
+            </section>
+            <RightSideBar />
+          </main>
+          <Bottombar />
+        </ClerkProvider>
+      </body>
     </html>
   );
 }
